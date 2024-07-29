@@ -12,6 +12,8 @@ const bodyParser = require('body-parser'); // Importa o pacote body-parser para 
 const db = require('./config/db'); // Importa a conexão com o banco de dados
 
 
+const transactionsRoutes = require('./routes/transactions');
+
 //inicializar nova aplicação Express
 
 const app = express(); // Inicializa uma nova aplicação Express
@@ -22,6 +24,8 @@ const app = express(); // Inicializa uma nova aplicação Express
 app.use(cors()); // Habilita o CORS para todas as rotas
 app.use(bodyParser.json()); // Configura o body-parser para analisar requisições JSON
 
+
+app.use('./api/transaction',transactionsRoutes);
 
 //Rota inicial para testar o servidor
 
@@ -34,4 +38,4 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 3000; // Define a porta a partir da variável de ambiente ou usa a porta 3000 como padrão
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`); // Loga uma mensagem informando que o servidor está rodando
-});
+}); 
