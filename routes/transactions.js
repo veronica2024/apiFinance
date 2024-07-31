@@ -1,12 +1,16 @@
-const express = require('express'); //importa a framework express
-const router = express.Router(); // criar um roteador
- const transactionsController = require('../controllers/transactionsController'); // importa o controlador 
+const express = require('express'); // Importa o framework Express
+const router = express.Router(); // Cria um novo roteador
+const transactionsController = require('../controllers/transactionsController'); // Importa o controlador de transações
+
+// Definindo uma rota para obter todas as transações
+router.get('/', transactionsController.getAllTransactions);
+
+//Definindo uma rota para adicionar uma nova transação
+router.post('/',transactionsController.addTransaction);
+
+// definindo uma rota para atualizar uma transação 
+router.post('/', transactionsController.updateTransactionsPunt);
 
 
- //Definir uma rota para obter todas os transaçoes
- router.get('./', transactionsController.getAllTransaction);
-
-
- //exportando o roteador 
-
- module.exports = router;
+// Exportando o roteador
+module.exports = router;
