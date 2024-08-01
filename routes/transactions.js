@@ -5,15 +5,20 @@ const transactionsController = require('../controllers/transactionsController');
 // Definindo uma rota para obter todas as transações
 router.get('/', transactionsController.getAllTransactions);
 
+
 //Definindo uma rota para adicionar uma nova transação
 router.post('/',transactionsController.addTransaction);
 
-// definindo uma rota para atualizar uma transação 
-router.post('/', transactionsController.updateTransactionsPunt);
+//Definindo uma rota para atualizar uma trasação existente(substituição completa)
+router.put('/:id', transactionsController.updateTransactionPut);
+
+//Definindo uma rota para atualizar uma trasação existente(substituição parcial)
+router.patch('/:id', transactionsController.updateTransactionPatch);
 
 
+//DELETE
 
+//definindo um arota 
+router.delete('/:id',transactionsController.deleteTransaction);
 
-
-// Exportando o roteador
 module.exports = router;
