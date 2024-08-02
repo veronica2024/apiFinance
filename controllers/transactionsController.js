@@ -86,11 +86,11 @@ const{id} = req.params;
 db.query ('DELETE FROM transactions WHERE id = ?', [id],
 (err,results) => {
   if(err) {
-      console.error('Erro ao atualizar transação', err);
-      res.status(500).send('Erro ao adicionar transação');
-      return;
-  }
-  res.send('Transação atualizada com sucesso');
+    console.error('Erro ao deletar transação', err);
+    res.status(500).send('Erro ao deletar transação');
+return;
+}
+res.send('Transação deletada com sucesso');
 }
 );
 };
