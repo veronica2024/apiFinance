@@ -14,9 +14,35 @@ const getAllTransactions = (req, res) => {
 };
 
 
-//Função para adicionar uma nova transação
+
+
+//Função para adicionar uma nova transação 
+// com verificação de duplicidade
 const addTransaction = (req,res) => {
     const {date, amount, description, category, account, user_id} = req.body;
+
+// veificar se a transação já existe
+
+db.query(
+  'SELECT * FROM transactions WHERE date=?, AND amout=?, AND description=?, AND account=?, user_id=? values (?,?,?,?,?,?)',
+  [date, amount, description, category, account, user_id],
+  (err,results) => {
+    if(err) {
+        console.error('Erro ao adicionar transação', err);
+        res.status(500).send('Erro ao adicionar transação');
+        return;
+    }
+   if(results.length>0){
+    //se a transação já existe
+    res.status(400).send('transação duplicada')
+   }
+  }
+)
+
+
+
+
+//se atransação não existe - insere
     db.query(
         'INSERT INTO transactions (date, amount, description, category, account, user_id) VALUES (?,?,?,?,?,?)',
         [date, amount, description, category, account, user_id],
@@ -30,8 +56,12 @@ const addTransaction = (req,res) => {
         }
 
     );
+  };
 
-};
+
+
+
+
 
 //Função para atualizar uma transação existente (substituição completa)
 const updateTransactionPut = (req, res) => {
