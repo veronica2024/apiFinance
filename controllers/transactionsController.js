@@ -52,7 +52,16 @@ db.query(
                 res.status(500).send('Erro ao adicionar transação');
                 return;
             }
-            res.status(201).send('Transação adicionada com sucesso');
+
+            //verificar se nenhuma lina foi afetada pele consulta
+
+            if(results.affectedRows===0){
+              res.status(404).send('transação não encontrada');
+              return;
+            }
+
+
+            res.send('Transação atualizada com sucesso');
         }
 
     );
@@ -76,10 +85,17 @@ const updateTransactionPut = (req, res) => {
           res.status(500).send('Erro ao adicionar transação');
       return;
     }
+    if(results.affectedRows===0){
+      res.status(404).send('transação não encontrada');
+      return;
+    }
+
+
     res.send('Transação atualizada com sucesso');
-  }
-  );
-  };
+}
+
+);
+};
   
   
   //Função para atualizar uma transação existente (substituição parcial)
@@ -104,8 +120,15 @@ const updateTransactionPut = (req, res) => {
           res.status(500).send('Erro ao adicionar transação');
           return;
       }
+      if(results.affectedRows===0){
+        res.status(404).send('transação não encontrada');
+        return;
+      }
+
+
       res.send('Transação atualizada com sucesso');
   }
+
 );
 };
   
@@ -120,10 +143,17 @@ db.query ('DELETE FROM transactions WHERE id = ?', [id],
     res.status(500).send('Erro ao deletar transação');
 return;
 }
+if(results.affectedRows===0){
+  res.status(404).send('transação não encontrada');
+  return;
+}
+
 res.send('Transação deletada com sucesso');
 }
 );
-};
+  };
+
+
 
   
   
