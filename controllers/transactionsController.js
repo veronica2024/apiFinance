@@ -42,7 +42,7 @@ db.query(
 
 
 
-//se atransação não existe - insere
+//se atransação não existe - insira-a ao banco de dados
     db.query(
         'INSERT INTO transactions (date, amount, description, category, account, user_id) VALUES (?,?,?,?,?,?)',
         [date, amount, description, category, account, user_id],
